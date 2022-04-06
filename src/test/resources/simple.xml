@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<simple a="a" b="bc">
+    <complex c="MySpecialValue"/>
+    <cpx c="x">
+        <myComplex c="abcd"/>
+    </cpx>
+    <cpx c="y"></cpx>
+</simple>

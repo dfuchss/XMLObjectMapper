@@ -1,0 +1,41 @@
+name: Maven Deploy (Dev)
+
+on:
+  push:
+    branches:
+      - 'main' # Build the latest develop-SNAPSHOT
+    paths:
+      - 'src/**'
+      - 'pom.xml'
+  
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: 'temurin'
+      
+      - name: Cache Maven Packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+                      
+      - name: Verify with Maven
+        run: mvn -B verify
+      
+      - name: Configure GIT
+        run: git config --global user.email "gh-actions@fuchss.org" &&  git config --global user.name "CI"
+      
+      - name: Publish Package
+        run: mvn -B deploy
+        env:
+          DEPLOY_PASS: ${{ secrets.DEPLOY_PASS }}

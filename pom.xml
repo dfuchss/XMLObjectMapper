@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.fuchss</groupId>
+    <artifactId>xml-object-mapper</artifactId>
+    <version>develop-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+    <distributionManagement>
+        <repository>
+            <id>gh-releases</id>
+            <name>git.fuchss.org Releases</name>
+            <url>git:releases://https://gh-actions:${env.DEPLOY_PASS}@packages.fuchss.org/github/releases.git</url>
+        </repository>
+        <snapshotRepository>
+            <id>gh-snapshots</id>
+            <name>git.fuchss.org Snapshots</name>
+            <url>git:snapshots://https://gh-actions:${env.DEPLOY_PASS}@packages.fuchss.org/github/snapshots.git</url>
+        </snapshotRepository>
+    </distributionManagement>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>synergian-repo</id>
+            <url>https://raw.github.com/synergian/wagon-git/releases</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <build>
+        <extensions>
+            <extension>
+                <groupId>ar.com.synergian</groupId>
+                <artifactId>wagon-git</artifactId>
+                <version>0.3.0</version>
+            </extension>
+        </extensions>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M6</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.8.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
