@@ -1,4 +1,4 @@
-# swt-utils
+# XML Object Mapper
 ![Maven Deploy (Dev)](https://github.com/dfuchss/XMLObjectMapper/workflows/Maven%20Deploy%20(Dev)/badge.svg)
 [![Latest Release](https://img.shields.io/github/release/dfuchss/XMLObjectMapper.svg)](https://github.com/dfuchss/XMLObjectMapper/releases/latest)
 [![GitHub issues](https://img.shields.io/github/issues/dfuchss/XMLObjectMapper.svg?style=square)](https://github.com/dfuchss/XMLObjectMapper/issues)
