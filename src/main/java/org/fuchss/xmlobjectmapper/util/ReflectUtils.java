@@ -33,6 +33,21 @@ public final class ReflectUtils {
 		}
 	}
 
+	public static <T> T getField(Object target, Field field, Class<T> resultType) {
+		try {
+			field.setAccessible(true);
+			var value = field.get(target);
+			return value == null ? null : resultType.cast(value);
+		} catch (ReflectiveOperationException e) {
+			throw new IllegalArgumentException(e.getMessage(), e);
+		}
+	}
+
+	public static String getValue(Object target, Field field) {
+		var value = getField(target, field, Object.class);
+		return value == null ? null : String.format("%s", value);
+	}
+
 	@FunctionalInterface
 	public interface ReflectiveConstructor<S> {
 		S get() throws ReflectiveOperationException;

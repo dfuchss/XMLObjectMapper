@@ -4,8 +4,10 @@ import org.fuchss.xmlobjectmapper.annotation.XMLList;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public final class CommonUtils {
 		return List.of(Integer.class, Integer.TYPE, Double.class, Double.TYPE, String.class).contains(type);
 	}
 
-	public static DocumentBuilderFactory getFactory() {
+	public static DocumentBuilderFactory getDocumentBuilderFactory() {
 		try {
 			var factory = DocumentBuilderFactory.newInstance();
 			factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
@@ -26,6 +28,13 @@ public final class CommonUtils {
 		} catch (ParserConfigurationException e) {
 			throw new IllegalStateException(e.getMessage(), e);
 		}
+	}
+
+	public static TransformerFactory getTransformerFactory() {
+		var factory = TransformerFactory.newInstance();
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+		factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+		return factory;
 	}
 
 	public static List<Node> findMultipleNodes(NodeList childNodes, String tagName) {

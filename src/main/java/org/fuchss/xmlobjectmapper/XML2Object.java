@@ -22,10 +22,10 @@ import java.util.Objects;
 import static org.fuchss.xmlobjectmapper.XMLExceptionGenerator.*;
 import static org.fuchss.xmlobjectmapper.util.CommonUtils.*;
 
-public final class XMLObjectMapper extends XMLRegistry {
-	private static final DocumentBuilderFactory factory = getFactory();
+public final class XML2Object extends XMLRegistry {
+	private static final DocumentBuilderFactory factory = getDocumentBuilderFactory();
 
-	public XMLObjectMapper() {
+	public XML2Object() {
 		super();
 	}
 

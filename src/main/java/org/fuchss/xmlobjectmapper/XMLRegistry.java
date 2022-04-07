@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-sealed class XMLRegistry permits XMLObjectMapper {
+sealed class XMLRegistry permits Object2XML, XML2Object {
 	protected final Map<Class<?>, String> classToName;
 	protected final Map<Class<?>, Supplier<Object>> classToConstructor;
 
