@@ -1,9 +1,9 @@
 package org.fuchss.xmlobjectmapper.mapper;
 
-import org.fuchss.xmlobjectmapper.XMLException;
-import org.w3c.dom.Node;
-
-@FunctionalInterface
-public interface XMLMapper {
-	void parseXML(Object currentObject, String currentExpectedTag, Node currentNode) throws XMLException;
+/**
+ * Defines a class that is able to serialize and deserialize objects to and from XML files.
+ *
+ * @author Dominik Fuchss
+ */
+public interface XMLMapper extends XMLParser, XMLSerializer {
 }

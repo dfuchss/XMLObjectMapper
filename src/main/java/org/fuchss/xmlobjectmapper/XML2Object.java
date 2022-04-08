@@ -4,6 +4,7 @@ import org.fuchss.xmlobjectmapper.annotation.XMLList;
 import org.fuchss.xmlobjectmapper.annotation.XMLReference;
 import org.fuchss.xmlobjectmapper.annotation.XMLValue;
 import org.fuchss.xmlobjectmapper.mapper.XMLMapper;
+import org.fuchss.xmlobjectmapper.mapper.XMLParser;
 import org.fuchss.xmlobjectmapper.util.ReflectUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -24,13 +25,34 @@ import java.util.Objects;
 import static org.fuchss.xmlobjectmapper.XMLExceptionGenerator.*;
 import static org.fuchss.xmlobjectmapper.util.CommonUtils.*;
 
+/**
+ * This class can be used to deserialize objects from an XML format.
+ *
+ * @author Dominik Fuchss
+ * @see Object2XML
+ */
 public final class XML2Object extends XMLRegistry {
 	private static final DocumentBuilderFactory factory = getDocumentBuilderFactory();
 
+	/**
+	 * Create a new mapper.
+	 */
 	public XML2Object() {
 		super();
 	}
 
+	/**
+	 * Deserialize an object from an XML string.
+	 *
+	 * @param xml    the XML string as InputStream
+	 * @param target the target class (XML Root Element)
+	 * @param <E>    the type of the target class
+	 * @return the deserialized object
+	 * @throws IOException  if anything regarding IO fails
+	 * @throws XMLException if anything regarding deserialization fails
+	 * @see #registerClass(Class)
+	 * @see #registerClasses(Class[])
+	 */
 	public <E> E parseXML(InputStream xml, Class<E> target) throws IOException, XMLException {
 		Document doc;
 		try {
@@ -42,7 +64,7 @@ public final class XML2Object extends XMLRegistry {
 		}
 
 		Object rootNode = classToConstructor.get(target).get();
-		parseXML(rootNode, classToName.get(target), doc.getDocumentElement());
+		parseXML(rootNode, classToTag.get(target), doc.getDocumentElement());
 		return target.cast(rootNode);
 	}
 
@@ -114,7 +136,7 @@ public final class XML2Object extends XMLRegistry {
 		Object value = classToConstructor.get(type).get();
 		ReflectUtils.setField(target, field, value);
 
-		XMLMapper mapper = reference.mapper() != XMLMapper.class //
+		XMLParser mapper = reference.mapper() != XMLMapper.class //
 				? ReflectUtils.toConstructor(ReflectUtils.getReflectiveConstructor(reference.mapper())).get() //
 				: this::parseXML;
 		mapper.parseXML(value, xmlName, node);
@@ -131,7 +153,7 @@ public final class XML2Object extends XMLRegistry {
 			return;
 
 		var valueConstructor = classToConstructor.get(list.elementType());
-		XMLMapper mapper = list.elementMapper() != XMLMapper.class //
+		XMLParser mapper = list.elementMapper() != XMLMapper.class //
 				? ReflectUtils.toConstructor(ReflectUtils.getReflectiveConstructor(list.elementMapper())).get() //
 				: this::parseXML;
 
