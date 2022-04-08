@@ -1,6 +1,6 @@
 package org.fuchss.xmlobjectmapper.annotation;
 
-import org.fuchss.xmlobjectmapper.XMLMapper;
+import org.fuchss.xmlobjectmapper.mapper.XMLMapper;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

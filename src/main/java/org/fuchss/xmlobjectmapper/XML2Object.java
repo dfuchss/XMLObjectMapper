@@ -3,6 +3,7 @@ package org.fuchss.xmlobjectmapper;
 import org.fuchss.xmlobjectmapper.annotation.XMLList;
 import org.fuchss.xmlobjectmapper.annotation.XMLReference;
 import org.fuchss.xmlobjectmapper.annotation.XMLValue;
+import org.fuchss.xmlobjectmapper.mapper.XMLMapper;
 import org.fuchss.xmlobjectmapper.util.ReflectUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -10,6 +11,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -29,10 +31,15 @@ public final class XML2Object extends XMLRegistry {
 		super();
 	}
 
-	public <E> E parseXML(InputStream xml, Class<E> target) throws IOException, ParserConfigurationException, SAXException {
-		var builder = factory.newDocumentBuilder();
-		Document doc = builder.parse(xml);
-		doc.getDocumentElement().normalize();
+	public <E> E parseXML(InputStream xml, Class<E> target) throws IOException, XMLException {
+		Document doc;
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			doc = builder.parse(xml);
+			doc.getDocumentElement().normalize();
+		} catch (ParserConfigurationException | SAXException e) {
+			throw new XMLException(e);
+		}
 
 		Object rootNode = classToConstructor.get(target).get();
 		parseXML(rootNode, classToName.get(target), doc.getDocumentElement());

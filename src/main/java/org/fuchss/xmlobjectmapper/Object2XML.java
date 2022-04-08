@@ -29,21 +29,31 @@ public final class Object2XML extends XMLRegistry {
 		super();
 	}
 
-	public String serializeObject(Object o) throws ParserConfigurationException, TransformerException {
+	public String serializeObject(Object o) throws XMLException {
 		if (!classToConstructor.containsKey(o.getClass()))
 			classNotRegistered(o.getClass());
 
-		var document = factory.newDocumentBuilder().newDocument();
+		Document document;
+		try {
+			document = factory.newDocumentBuilder().newDocument();
+		} catch (ParserConfigurationException e) {
+			throw new XMLException(e);
+		}
+
 		var root = document.createElement(classToName.get(o.getClass()));
 		document.appendChild(root);
 		serializeObject(document, o, root);
 		document.normalize();
 
-		Transformer transformer = getTransformerFactory().newTransformer();
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		Result result = new StreamResult(bos);
-		transformer.transform(new DOMSource(document), result);
-		return bos.toString(StandardCharsets.UTF_8);
+		try {
+			Transformer transformer = getTransformerFactory().newTransformer();
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			Result result = new StreamResult(bos);
+			transformer.transform(new DOMSource(document), result);
+			return bos.toString(StandardCharsets.UTF_8);
+		} catch (TransformerException e) {
+			throw new XMLException(e);
+		}
 	}
 
 	private void serializeObject(Document document, Object currentObject, Element currentNode) {
