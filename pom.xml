@@ -12,6 +12,7 @@
     <description>This project contains a simple object mapper for XML files. Currently, it only supports reading from
         XML files.
     </description>
+    <url>https://github.com/dfuchss/XMLObjectMapper</url>
     <licenses>
         <license>
             <name>MIT License</name>
