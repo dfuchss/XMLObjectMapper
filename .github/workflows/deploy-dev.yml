@@ -36,7 +36,7 @@ jobs:
           gpg_private_key: ${{ secrets.GPG_KEY }}
 
       - name: Verify with Maven
-        run: mvn -U -B package
+        run: mvn -U -B verify
 
       - name: Publish Package
-        run: mvn -U -B deploy
+        run: mvn -P deployment -U -B deploy
