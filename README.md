@@ -1,5 +1,5 @@
 # XML Object Mapper
-![Maven Deploy (Dev)](https://github.com/dfuchss/XMLObjectMapper/workflows/Maven%20Deploy%20(Dev)/badge.svg)
+[![Maven Deploy](https://github.com/dfuchss/XMLObjectMapper/actions/workflows/deploy.yml/badge.svg)](https://github.com/dfuchss/XMLObjectMapper/actions/workflows/deploy.yml)
 [![Latest Release](https://img.shields.io/github/release/dfuchss/XMLObjectMapper.svg)](https://github.com/dfuchss/XMLObjectMapper/releases/latest)
 [![GitHub issues](https://img.shields.io/github/issues/dfuchss/XMLObjectMapper.svg?style=square)](https://github.com/dfuchss/XMLObjectMapper/issues)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=square)](https://github.com/dfuchss/XMLObjectMapper/blob/master/LICENCE.md)
