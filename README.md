@@ -9,18 +9,11 @@ This project contains a simple object mapper for XML files. Currently, it only s
 # Maven & Co.
 If you want to use maven or some similar tool add the following code to your pom:
 ```xml
-<repositories>
-	<repository>
-		<id>maven-snapshots</id>
-		<url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-	</repository>
-</repositories>
-
 <dependencies>
   <dependency>
     <groupId>org.fuchss</groupId>
     <artifactId>xml-object-mapper</artifactId>
-    <version>develop-SNAPSHOT</version>
+    <version>X.Y.Z</version>
   </dependency>
 </dependencies>
 ```
