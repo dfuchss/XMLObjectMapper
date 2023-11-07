@@ -4,7 +4,7 @@
 
     <groupId>org.fuchss</groupId>
     <artifactId>xml-object-mapper</artifactId>
-    <version>0.6.0</version>
+    <version>0.7.0-SNAPSHOT</version>
 
     <name>XML Object Mapper</name>
     <description>This project contains a simple object mapper for XML files. Currently, it only supports reading from
