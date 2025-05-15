@@ -55,6 +55,7 @@
                     <publishingServerId>central</publishingServerId>
                     <autoPublish>true</autoPublish>
                     <waitUntil>published</waitUntil>
+                    <deploymentName>xml-object-mapper</deploymentName>
                 </configuration>
             </plugin>
             <plugin>
